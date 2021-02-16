@@ -1,0 +1,21 @@
+name: Compress and release module
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  minify:
+    name: Minify modules
+    needs: [version]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+          architecture: 'x64'
+      - name: Run minifier command
+        run: python -c 'import json, sys;json.dump(json.load(sys.stdin), sys.stdout)' < example/Example.json

@@ -1,0 +1,93 @@
+{
+  "moduleName": "",
+  "moduleInitials": "",
+  "moduleDesc": "",
+  "developer": "",
+  "moduleID": "07091998",
+  "moduleImage": "",
+  "moduleVersion": "1.0",
+  "moduleLenguage": "IT",
+  "moduleHasImages": "",
+  "outputType": "image",
+  "randomizeUserAgent": "false",
+  "baseURL": "",
+  "blackListed": [""],
+  "mainPage": [
+    {
+      "request": "",
+      "method": "get",
+      "headers": [{ "key": "", "value": "" }],
+      "extraInfo": [{ "value": "" }],
+      "loadJavascript": "false",
+      "javaScript": "",
+      "output": [
+        {
+          "sectionName": "",
+          "mangasArray": [
+            { "moduleID": "", "image": "", "link": "", "title": "" }
+          ]
+        }
+      ]
+    }
+  ],
+  "search": [
+    {
+      "request": "",
+      "method": "get",
+      "headers": [{ "key": "", "value": "" }],
+      "separator": "+",
+      "extraInfo": [{ "value": "" }],
+      "loadJavascript": "false",
+      "javaScript": "",
+      "output": [
+        {
+          "moduleID": "0",
+          "image": "",
+          "link": "",
+          "title": "",
+          "type": "",
+          "voice": "",
+          "stars": ""
+        }
+      ]
+    }
+  ],
+  "info": [
+    {
+      "request": "get",
+      "method": "get",
+      "headers": [{ "key": "", "value": "" }],
+      "extraInfo": [{ "value": "" }],
+      "loadJavascript": "false",
+      "javaScript": "",
+      "output": {
+        "moduleID": "0",
+        "image": "",
+        "link": "",
+        "title": "",
+        "description": "",
+        "genres": [""],
+        "type": "",
+        "status": "",
+        "chapters": [{ "link": "", "moduleID": "" }]
+      }
+    }
+  ],
+  "chapters": [
+    {
+      "request": "",
+      "method": "get",
+      "headers": [{ "key": "key", "value": "value" }],
+      "extraInfo": [{ "value": "" }],
+      "loadJavascript": "false",
+      "javaScript": "",
+      "output": [
+        {
+          "link": "",
+          "moduleID": "",
+          "headers": [{ "key": "key", "value": "value" }]
+        }
+      ]
+    }
+  ]
+}
