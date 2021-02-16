@@ -6,8 +6,32 @@ on:
   workflow_dispatch:
 
 jobs:
+  version:
+    name: Create version number
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - name: Fetch all history for all tags and branches
+        run: |
+          git config remote.origin.url https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
+          git fetch --prune --tags --unshallow
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.8
+        with:
+          versionSpec: "5.x"
+      - name: Use GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.8
+      - name: Create version.txt with nuGetVersion
+        run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
+      - name: Upload version.txt
+        uses: actions/upload-artifact@v2
+        with:
+          name: gitversion
+          path: version.txt
   minify:
-    name: Minify modules
+    name: Minify modules and create release
+    needs: [version]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,4 +41,11 @@ jobs:
           python-version: '3.x'
           architecture: 'x64'
       - name: Run minifier command
-        run: python -c 'import json, sys;json.dump(json.load(sys.stdin), sys.stdout)' < example/Example.json
+        run: python -c 'import json, sys;json.dump(json.load(sys.stdin), sys.stdout)' < example/Example.json > example/Example.txt
+      - name: Create a Release in GitHub
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "example/Example.txt"
+          token: ${{ secrets.GH_TOKEN }}
+          tag: ${{ steps.version.outputs.content }}
+          commit: ${{ github.sha }}
