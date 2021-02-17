@@ -48,13 +48,14 @@ const firstImage = document
   .trim();
 const imageBaseLink = firstImage.substring(0, firstImage.lastIndexOf('/') + 1);
 
+const marker = '\"pages\":[';
 const fromPages = mangaworldScript.substring(
-  mangaworldScript.indexOf('\"pages\":[')
+  mangaworldScript.indexOf(marker) + marker.length
 );
 const pagesRaw = fromPages.substring(0, fromPages.indexOf(']'));
 const pagesStr = pagesRaw.split(',');
 
-for (let x = 1; x < pagesStr.length; x++) {
+for (let x = 0; x < pagesStr.length; x++) {
   const pageRoute = pagesStr[x].replaceAll('\"', '');
   const image = `${imageBaseLink}${pageRoute}`;
   output.push(new Output(image, '', moduleID, 'false', headers));
