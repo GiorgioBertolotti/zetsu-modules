@@ -90,10 +90,10 @@ for (let x = 0; x < genresBadges.length; x++) {
   genres.push(genreBadge.innerText);
 }
 
-const desc = document.querySelector('#noidungm').innerHTML;
+desc = document.querySelector('#noidungm').innerHTML;
 
 const chaptersArray = document.querySelectorAll('.chapter');
-for (const x = 0; x < chaptersArray.length; x++) {
+for (let x = 0; x < chaptersArray.length; x++) {
   const chapter = chaptersArray[x];
   const link = chapter.querySelector('a').href;
   chapters.push(new Chapters(link, moduleID));
