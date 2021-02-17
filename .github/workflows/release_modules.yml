@@ -51,13 +51,12 @@ jobs:
         with:
           python-version: "3.x"
           architecture: "x64"
-      # TODO: Uncomment the followind steps to generate the minified module and release it on github
-      # - name: Run minifier command
-      #   run: python -c 'import json, sys;json.dump(json.load(sys.stdin), sys.stdout)' < example/Example.json > example/Example.txt
-      # - name: Create a Release in GitHub
-      #   uses: ncipollo/release-action@v1
-      #   with:
-      #     artifacts: "example/Example.txt"
-      #     token: ${{ secrets.GH_TOKEN }}
-      #     tag: ${{ steps.version.outputs.content }}
-      #     commit: ${{ github.sha }}
+      - name: Minify mangaworld.cc
+        run: python -c 'import json, sys;json.dump(json.load(sys.stdin), sys.stdout)' < mangaworld.cc/MangaWorld-cc.json > mangaworld.cc/MangaWorld-cc.txt
+      - name: Create a Release in GitHub
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "mangaworld.cc/MangaWorld-cc.txt"
+          token: ${{ secrets.GH_TOKEN }}
+          tag: ${{ steps.version.outputs.content }}
+          commit: ${{ github.sha }}
