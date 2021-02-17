@@ -2,9 +2,11 @@ function Header(key, value) {
   this.key = key;
   this.value = value;
 }
+
 function ExtraInfo(value) {
   this.value = value;
 }
+
 function Output(
   moduleID,
   image,
@@ -26,10 +28,12 @@ function Output(
   this.status = status;
   this.chapters = chapters;
 }
+
 function Chapters(link, moduleID) {
   this.link = link;
   this.moduleID = moduleID;
 }
+
 function InfoObject(
   request,
   method,
@@ -47,72 +51,56 @@ function InfoObject(
   this.javaScript = javaScript;
   this.output = output;
 }
-var savedData = document.getElementById("katsu-final-data");
-var parsedJson = JSON.parse(savedData.innerHTML);
-var moduleID = "9809234289";
-var headers = [new Header("", "")];
-var extraInfo = [new ExtraInfo("")];
-var infoObject;
-var output;
-var chapters = [];
-var type = "";
-var status = "";
-var genres = [];
-var desc = "";
-var image = "";
-var title = "";
-image = document
-  .querySelector(
-    ".col-12.col-sm-12.col-md-12 > .tab-summary > .summary_image > a > img"
-  )
-  .getAttribute("data-src");
-var typeList = document.querySelectorAll(
-  ".summary_content_wrap > .summary_content > .post-content > .post-content_item"
-);
-for (var i = 0; i < typeList.length; i++) {
-  if (typeList[i].querySelector(".summary-heading > h5").innerText == "Type") {
-    type = typeList[i].querySelector(".summary-content").innerText;
-  }
-}
-title = document.querySelector(".post-title").innerText;
-var statusPage = document.querySelectorAll(".post-status > .post-content_item");
-for (var i = 0; i < statusPage.length; i++) {
-  if (
-    statusPage[i].querySelector(".summary-heading > h5").innerText == "Status"
-  ) {
-    status = statusPage[i].querySelector(".summary-content").innerText;
-  }
-}
+
+const savedData = document.getElementById('katsu-final-data');
+const parsedJson = JSON.parse(savedData.innerHTML);
+const moduleID = '199809071';
+const headers = [new Header('', '')];
+const extraInfo = [new ExtraInfo('')];
+
+const chapters = [];
+let type = '';
+let status = '';
+let genres = [];
+let desc = '';
+let image = '';
+let title = '';
+
+image = document.querySelector('img.rounded').getAttribute('src');
+
+type = document.querySelector(
+  '.info > div.meta-data.row > div:nth-child(5) > a'
+).innerText;
+
+title = document.querySelector('.info > h1').innerText;
+
+status = document.querySelector(
+  '.info > div.meta-data.row.px-1 > div:nth-child(6) > a'
+).innerText;
+
 var linkData = document.head
-  .querySelector('link[rel="canonical"]')
-  .getAttribute("href");
-console.log(linkData);
-var genreData = [];
-for (var i = 0; i < typeList.length; i++) {
-  if (
-    typeList[i].querySelector(".summary-heading > h5").innerText == "Genre(s)"
-  ) {
-    genreData.push(
-      typeList[i].querySelectorAll(".summary-content > .genres-content > a")
-    );
-    console.log(genreData);
-    for (var j = 0; j < genreData[0].length; j++) {
-      genres.push(genreData[0][j].innerText);
-    }
-  }
+  .querySelector('meta[property=\"og:url\"]')
+  .getAttribute('content');
+
+const genresBadges = document
+  .querySelector('.info > div.meta-data.row.px-1 > div:nth-child(2)')
+  .querySelectorAll('a');
+for (let x = 0; x < genresBadges.length; x++) {
+  const genreBadge = genresBadges[x];
+  genres.push(genreBadge.innerText);
 }
-var desc = document.querySelectorAll(
-  ".depion-summary > .summary__content > p"
-)[1].innerHTML;
-var chaptersArray = document.querySelectorAll(
-  ".listing-chapters_wrap.show-more > .main.version-chap > .wp-manga-chapter > a"
-);
-for (var x = 0; x < chaptersArray.length; x++) {
-  var chapLink = chaptersArray[x].href;
-  chapters.push(new Chapters(chapLink, moduleID));
+
+const desc = document.querySelector('#noidungm').innerHTML;
+
+const chaptersArray = document.querySelectorAll('.chapter');
+for (const x = 0; x < chaptersArray.length; x++) {
+  const chapter = chaptersArray[x];
+  const link = chapter.querySelector('a').href;
+  chapters.push(new Chapters(link, moduleID));
 }
 chapters.reverse();
-output = new Output(
+
+const output = new Output(
   moduleID,
   image,
   linkData,
@@ -123,6 +111,16 @@ output = new Output(
   status,
   chapters
 );
-infoObject = new InfoObject("", "get", headers, extraInfo, "", "", output);
-var finalJson = JSON.stringify(infoObject);
+
+const infoObject = new InfoObject(
+  '',
+  'get',
+  headers,
+  extraInfo,
+  '',
+  '',
+  output
+);
+
+const finalJson = JSON.stringify(infoObject);
 savedData.innerHTML = finalJson;
