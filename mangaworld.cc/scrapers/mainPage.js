@@ -46,18 +46,19 @@ let output = [];
 let sectionName = "";
 let nextRequest = "";
 
-sectionName = document.querySelector("#popular > div > div > div.s-title > h3")
-  .innerText;
+sectionName = document.querySelector(
+  "body > div.container > div > div.col-sm-12.col-md-4.col-xl-3 > div:nth-child(4) > div > div.s-title > h3"
+).innerText;
 let mangasArray = [];
 let mangas = document
-  .querySelector("#chapters-slide > div.slick-list.draggable > div")
-  .querySelectorAll(".slick-active");
+  .querySelector("body > div.container > div > div.col-sm-12.col-md-4.col-xl-3 > div:nth-child(4) > div > div.top-wrapper")
+  .querySelectorAll(".entry");
 
 for (let x = 0; x < mangas.length; x++) {
   const manga = mangas[x];
-  const link = manga.querySelector("a").href;
-  const image = manga.querySelector("a > img").getAttribute("src");
-  const title = manga.querySelector("p").title;
+  const link = manga.querySelector(".long > .content > .d-flex.justify-content-between > a").href;
+  const image = manga.querySelector(".long > .content > .d-flex.flex-wrap.flex-row > .img-wrapper > a > .thumb > img").getAttribute("src");
+  const title = manga.querySelector(".long > .content > .d-flex.justify-content-between > a").title;
   const mangaObject = new MangasArray(moduleID, image, link, title);
   mangasArray.push(mangaObject);
 }
